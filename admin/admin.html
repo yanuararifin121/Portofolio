@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Portfolio Management</title>
+    <link rel="icon" type="image/png" href="../Foto/logo fiuks.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Check Login Session -->
+    <script>
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0a0a0c;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+       .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+
+            display: inline-block; /* penting agar gradient mengikuti teks */
+        }
+        .bg-gradient-ui {
+            background: linear-gradient(135deg, #7c3aed 0%, #0891b2 100%);
+        }
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #a78bfa;
+            background: rgba(255, 255, 255, 0.08);
+            outline: none;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+        }
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: #a78bfa;
+            background: rgba(167, 139, 250, 0.05);
+        }
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(60px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d2d30;
+            border-radius: 10px;
+        }
+        select option {
+            background-color: #18181f;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+    
+    <div class="blob top-[-10%] left-[-10%]"></div>
+    <div class="blob bottom-[-10%] right-[-10%]"></div>
+
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-bold text-gradient">Panel Admin</h1>
+                <p class="text-gray-400 text-sm mt-1">Unggah project Web & Mobile Anda secara langsung</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="../index.html" class="px-4 py-2 glass rounded-xl text-sm hover:bg-white/10 transition">Kembali Ke Profile</a>
+                <button onclick="logout()" class="px-4 py-2 bg-red-600/20 text-red-400 border border-red-600/30 rounded-xl text-sm hover:bg-red-600/30 transition">Logout</button>
+                <div class="w-10 h-10 bg-gradient-ui rounded-full border-2 border-white/20"></div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <section class="glass p-8 rounded-3xl">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Project Baru
+                    </h2>
+                    
+                    <form id="uploadForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2 ml-1">Nama Project</label>
+                                <input type="text" id="projTitle" required placeholder="Contoh: E-Commerce App" class="w-full px-4 py-3 rounded-xl input-field text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2 ml-1">Kategori</label>
+                                <select id="projCategory" class="w-full px-4 py-3 rounded-xl input-field text-white appearance-none">
+                                    <option value="web">Web</option>
+                                    <option value="mobile">Mobile</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Upload Gambar -->
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2 ml-1 flex justify-between">
+                                <span>Gambar Project</span>
+                                <span class="text-[10px] text-gray-500 italic font-normal">(Opsional)</span>
+                            </label>
+                            <input type="file" id="projFile" accept="image/*" class="hidden">
+                            <div id="dropZone" class="upload-area w-full p-8 rounded-2xl flex flex-col items-center justify-center gap-2 text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="text-sm font-medium"><span class="text-purple-400">Klik untuk upload</span> atau seret gambar ke sini</p>
+                                <p class="text-[10px]">PNG, JPG atau WEBP (Maks. 2MB)</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2 ml-1">Deskripsi Singkat</label>
+                            <textarea id="projDesc" rows="4" required placeholder="Jelaskan fitur utama atau teknologi yang digunakan..." class="w-full px-4 py-3 rounded-xl input-field text-white"></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full py-4 bg-gradient-ui rounded-xl font-bold text-white hover:opacity-90 transition shadow-lg shadow-purple-500/20">
+                                Simpan Project
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass p-6 rounded-3xl">
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Statistik</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+                            <span class="text-2xl font-bold block" id="totalProjects">0</span>
+                            <span class="text-xs text-gray-500">Total Project</span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+                            <span class="text-2xl font-bold block text-cyan-400">3</span>
+                            <span class="text-xs text-gray-500">Kategori</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-3xl overflow-hidden">
+                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Preview Project</h3>
+                    <div id="livePreview" class="relative group aspect-video rounded-xl bg-white/5 flex items-center justify-center border border-dashed border-white/20 overflow-hidden text-gray-500 text-xs italic">
+                        Belum ada gambar terpilih
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-12 glass p-8 rounded-3xl">
+            <h2 class="text-xl font-semibold mb-6">Daftar Project</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-white/10 text-gray-400 text-sm">
+                            <th class="pb-4 font-medium">Project</th>
+                            <th class="pb-4 font-medium">Kategori</th>
+                            <th class="pb-4 font-medium text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectList" class="divide-y divide-white/5"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <div id="toast" class="fixed bottom-8 right-8 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-green-500 text-white px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span id="toastMsg">Berhasil!</span>
+        </div>
+    </div>
+
+
+    <!-- Custom JS -->
+    <script type="module" src="../admin/admin.js"></script>
+</body>
+</html>

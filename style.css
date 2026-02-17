@@ -1,0 +1,378 @@
+body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0a0a0c;
+            color: #e2e8f0;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            font-weight: 900 !important;
+            animation: fadeInUp 1s ease-out;
+        }
+        .bg-gradient-ui {
+            background: linear-gradient(135deg, #7c3aed 0%, #0891b2 100%);
+        }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(167, 139, 250, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3);
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #a78bfa;
+            transition: width .3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* ===============================
+           ANIMATIONS
+        =============================== */
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes bounce-light {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounceScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-10deg) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        /* Apply animations to elements */
+        h1, h2, h3, h4, h5 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        p, span {
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .nav-link {
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .glass {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .blob {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scroll animations */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-slide-down {
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-slide-down.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-slide-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced hover effects */
+        .hover-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hover-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        .hover-card:hover::before {
+            left: 100%;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(167, 139, 250, 0.6);
+            box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Button animations */
+        button {
+            transition: all 0.3s ease-out;
+            position: relative;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Icon animations */
+        .fa-solid, .fa-brands {
+            transition: all 0.3s ease-out;
+        }
+
+        .hover-card:hover i {
+            animation: bounce-light 0.6s ease-in-out;
+        }
+
+        /* Progress bar animation */
+        .bg-gradient-ui {
+            animation: shimmer 2s infinite;
+            background-size: 1000px 100%;
+        }
+
+        /* Text gradient animation */
+
+        /* Nav hover effect */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease-out;
+        }
+
+        .nav-link:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+        }
+
+        /* Stagger animations for lists */
+        .space-y-6 > div {
+            animation: slideInUp 0.8s ease-out backwards;
+        }
+
+        .space-y-6 > div:nth-child(1) { animation-delay: 0.1s; }
+        .space-y-6 > div:nth-child(2) { animation-delay: 0.2s; }
+        .space-y-6 > div:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Grid animations */
+        .grid > * {
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .grid > *:nth-child(1) { animation-delay: 0.1s; }
+        .grid > *:nth-child(2) { animation-delay: 0.2s; }
+        .grid > *:nth-child(3) { animation-delay: 0.3s; }
+        .grid > *:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Image hover zoom */
+        img {
+            transition: all 0.5s ease-out;
+        }
+
+        .hover-card:hover img {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        /* Form input animations */
+        input, textarea {
+            transition: all 0.3s ease-out;
+        }
+
+        input:focus, textarea:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+     

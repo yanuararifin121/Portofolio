@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Yann UI/UX Designer</title>
+    <link rel="icon" type="image/png" href="Foto/logo fiuks.png">
+    <link href="input.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="text-2xl font-bold tracking-tighter">
+            <span class="text-white">Yann</span><span class="text-purple-400"> UI/UX.</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#portfolio" class="nav-link">Work</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <a href="admin/login.html"
+            class="bg-gradient-ui px-6 py-2 rounded-full text-sm font-bold hover:opacity-90 transition">
+            Login</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden scroll-fade-in">
+        <div class="blob top-[-10%] left-[-10%]"></div>
+        <div class="blob bottom-[-10%] right-[-10%]"></div>
+        
+        <div class="max-w-5xl text-center z-10">
+            <h2 class="text-purple-400 font-semibold tracking-widest uppercase mb-4 text-sm animate-pulse scroll-fade-in">Available for new projects</h2>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight scroll-slide-right">
+                Crafting <span class="text-gradient">Intuitive</span> & Impactful Digital Experiences
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed scroll-fade-in">
+                Halo, saya seorang UI/UX Designer berpengalaman yang berfokus pada pemecahan masalah melalui desain yang berpusat pada pengguna dan estetika modern.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#portfolio" class="bg-gradient-ui px-8 py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2 group transition-all scroll-scale-in hover:shadow-lg hover:shadow-purple-500/50">
+                    View Portfolio <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#contact" class="glass px-8 py-4 rounded-xl font-bold text-white hover:bg-white/10 transition-all border border-white/10 scroll-scale-in">
+                    Let's Talk
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto scroll-fade-in">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative scroll-slide-left">
+                <div class="w-full aspect-square rounded-3xl overflow-hidden glass p-4 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500">
+                    <div class="w-full h-full rounded-2xl bg-gray-800 flex items-center justify-center relative overflow-hidden">
+                         <img src= "Foto/foto yanuar 1.png" alt="Profile" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                </div> 
+                <!-- Experience Badge -->
+                <div class="absolute -bottom-6 -right-6 glass p-6 rounded-2xl border border-gray-600/30 hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div class="text-3xl font-bold text-white animate-bounce">3+</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Years Experience</div>
+                </div>
+            </div>
+            <div class="scroll-slide-right">
+                <h3 class="text-3xl font-bold mb-6 text-white">The Designer behind the <span class="text-purple-400">pixels.</span></h3>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    Saya percaya bahwa desain yang baik bukan hanya tentang keindahan visual, tetapi tentang bagaimana solusi tersebut memberikan nilai bagi bisnis dan kemudahan bagi pengguna.
+                </p>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Dengan latar belakang di bidang riset pengguna dan desain visual, saya membantu brand membangun produk digital yang bermakna, mulai dari wireframing hingga prototyping tingkat tinggi menggunakan Figma.
+                </p>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class= "glass p-8 rounded-2xl hover-card transition-all group">
+                        <h4 class="text-white font-bold mb-2">Problem Solver</h4>
+                        <p class="text-sm text-gray-500">Mencari solusi kreatif untuk tantangan UX rumit.</p>
+                    </div>
+                    <div class="glass p-8 rounded-2xl hover-card transition-all group">
+                        <h4 class="text-white font-bold mb-2">User-Centered Design</h4>
+                        <p class="text-sm text-gray-500">Fokus pada kebutuhan nyata pengguna akhir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 bg-[#0d0d10] scroll-fade-in">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4 scroll-fade-in">Journey So Far</h2>
+                <div class="h-1 w-20 bg-gradient-ui mx-auto rounded-full animate-pulse"></div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Item 1 -->
+                <div class="glass p-8 rounded-3xl flex flex-col md:flex-row gap-6 hover-card transition-all group scroll-slide-left">
+                    <div class="md:w-1/4">
+                        <span class="text-purple-400 font-bold">2025 - Present</span>
+                        <p class="text-xs text-gray-500 uppercase mt-1">Full-time Role</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">UI/UX Designer Freelance</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Bekerja dengan berbagai startup internasional untuk membangun aplikasi mobile (Fintech & E-commerce). Bertanggung jawab penuh dari UX Research hingga High-Fidelity Prototype.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass p-8 rounded-3xl flex flex-col md:flex-row gap-6 hover-card transition-all group scroll-slide-right">
+                    <div class="md:w-1/4">
+                        <span class="text-cyan-400 font-bold">2024 - 2025</span>
+                        <p class="text-xs text-gray-500 uppercase mt-1">Project Based</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">UI/UX Design Project Experience</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Terlibat dalam berbagai proyek desain UI/UX berbasis kebutuhan pengguna, mulai dari analisis masalah, pembuatan wireframe, hingga pengembangan high-fidelity prototype.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 max-w-7xl mx-auto scroll-fade-in">
+        <div class="grid md:grid-cols-2 gap-16">
+            <div class="scroll-slide-left">
+                <h2 class="text-4xl font-bold text-white mb-6">Expertise & <span class="text-purple-400">Toolkit</span></h2>
+                <p class="text-gray-400 mb-8">Saya menguasai ekosistem desain modern dengan fokus mendalam pada Figma untuk efisiensi kolaborasi.</p>
+                
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-bold text-white">Figma & Design Systems</span>
+                            <span class="text-sm text-purple-400">98%</span>
+                        </div>
+                        <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-ui w-[98%] animate-pulse"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-bold text-white">UX Research & Strategy</span>
+                            <span class="text-sm text-purple-400">90%</span>
+                        </div>
+                        <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-ui w-[90%] animate-pulse"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-sm font-bold text-white">Prototyping (Advanced)</span>
+                            <span class="text-sm text-purple-400">95%</span>
+                        </div>
+                        <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-ui w-[95%] animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 scroll-slide-right">
+                <div class="glass p-6 rounded-2xl flex flex-col items-center text-center hover-card transition-all">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-4 text-2xl">
+                        <i class="fa-brands fa-figma"></i>
+                    </div>
+                    <h5 class="font-bold text-white mb-1">Figma</h5>
+                    <p class="text-xs text-gray-500">Auto Layout & Components</p>
+                </div>
+                <div class="glass p-6 rounded-2xl flex flex-col items-center text-center hover-card transition-all">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 mb-4 text-2xl">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h5 class="font-bold text-white mb-1">Wireframing</h5>
+                    <p class="text-xs text-gray-500">Low to High Fidelity</p>
+                </div>
+                <div class="glass p-6 rounded-2xl flex flex-col items-center text-center hover-card transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4 text-2xl">
+                        <i class="fa-solid fa-vial"></i>
+                    </div>
+                    <h5 class="font-bold text-white mb-1">UX Testing</h5>
+                    <p class="text-xs text-gray-500">Usability Metrics</p>
+                </div>
+                <div class="glass p-6 rounded-2xl flex flex-col items-center text-center hover-card transition-all">
+                    <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center text-pink-400 mb-4 text-2xl">
+                        <i class="fa-solid fa-code-merge"></i>
+                    </div>
+                    <h5 class="font-bold text-white mb-1">Dev Handoff</h5>
+                    <p class="text-xs text-gray-500">Zeplin & Documentation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Portfolio Grid -->
+<section id="portfolio" class="py-24 px-6 bg-[#0d0d10] scroll-fade-in">
+    
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Header & Filter -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 scroll-slide-down">
+            <div>
+                <h2 class="text-4xl font-bold text-white mb-2">Selected Works</h2>
+                <p class="text-gray-500">Eksplorasi terbaru dalam desain UI/UX.</p>
+            </div>
+
+            <div class="flex space-x-4">
+                <button data-filter="all"
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 text-sm hover:scale-105 transition-transform">
+                    All Projects
+                </button>
+                <button data-filter="mobile"
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white text-sm hover:scale-105 transition-transform">
+                    Mobile
+                </button>
+                <button data-filter="web"
+                    class="filter-btn px-6 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white text-sm hover:scale-105 transition-transform">
+                    Web
+                </button>
+            </div>
+        </div>
+
+       <!-- Portfolio Items -->
+        <div id="portfolioGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project dari Admin Panel akan dirender di sini -->
+        </div>
+            
+
+        <div class="flex justify-center mt-10 gap-3" id="pagination"></div>
+        
+    </div>
+</section>
+
+
+    <!-- Certificates -->
+    <section id="certificates" class="py-24 px-6 max-w-7xl mx-auto scroll-fade-in">
+        <h2 class="text-3xl font-bold text-white mb-12 text-center">Recognitions & <span class="text-cyan-400">Certifications</span></h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass p-6 rounded-2xl hover-card transition-all text-center scroll-scale-in hover:shadow-2xl hover:shadow-yellow-500/20">
+                <i class="fa-solid fa-certificate text-3xl text-yellow-500 mb-4 animate-bounce"></i>
+                <h5 class="font-bold text-white text-sm mb-1">Google UX Design</h5>
+                <p class="text-xs text-gray-500">Coursera • 2023</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-card transition-all text-center scroll-scale-in hover:shadow-2xl hover:shadow-purple-500/20">
+                <i class="fa-solid fa-award text-3xl text-purple-500 mb-4 animate-bounce"></i>
+                <h5 class="font-bold text-white text-sm mb-1">Figma Expert Certification</h5>
+                <p class="text-xs text-gray-500">Figma Academy • 2023</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-card transition-all text-center scroll-scale-in hover:shadow-2xl hover:shadow-blue-500/20">
+                <i class="fa-solid fa-graduation-cap text-3xl text-blue-500 mb-4 animate-bounce"></i>
+                <h5 class="font-bold text-white text-sm mb-1">Interaction Design</h5>
+                <p class="text-xs text-gray-500">IxDF • 2022</p>
+            </div>
+            <div class="glass p-6 rounded-2xl hover-card transition-all text-center scroll-scale-in hover:shadow-2xl hover:shadow-cyan-500/20">
+                <i class="fa-solid fa-star text-3xl text-cyan-500 mb-4 animate-bounce"></i>
+                <h5 class="font-bold text-white text-sm mb-1">Best UI/UX Award</h5>
+                <p class="text-xs text-gray-500">IT Design Fest • 2021</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 bg-[#0a0a0c] scroll-fade-in">
+        <div class="max-w-6xl mx-auto glass p-12 rounded-[3rem] border border-white/5 relative overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500">
+            <div class="blob top-0 right-0"></div>
+            
+            <div class="grid md:grid-cols-2 gap-16 relative z-10">
+                <div class="scroll-slide-left">
+                    <h2 class="text-5xl font-extrabold text-white mb-6">Let's <span class="text-gradient">Work</span> Together.</h2>
+                    <p class="text-gray-400 mb-10 text-lg">Punya project menarik atau butuh bantuan dalam UX audit? Mari bicara lebih lanjut.</p>
+                    
+                    <div class="space-y-6">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=yanuararifin121@gmail.com&su=Kerja%20Sama%20UI%2FUX&body=Halo%20Yanuar,%0ASaya%20tertarik%20untuk%20bekerja%20sama."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center gap-4 text-gray-300 hover:text-purple-400 transition-all group duration-300 hover:translate-x-2">
+    
+                            <div class="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:bg-purple-500/10 transition-all group-hover:shadow-lg group-hover:shadow-purple-500/30">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span>yanuararifin121@gmail.com</span>
+                        </a>
+                        <a href="https://wa.me/6285648919384?text=Halo%20Yanuar%2C%20saya%20tertarik%20untuk%20Joki%20UI/UX%20Designer." target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-gray-300 hover:text-cyan-400 transition-all group duration-300 hover:translate-x-2">
+                            <div class="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-all group-hover:shadow-lg group-hover:shadow-cyan-500/30">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <span>+62 856 4891 9384</span>
+                        </a>
+                        <div class="flex gap-4 pt-6">
+                            <a href="https://www.linkedin.com/in/yanuar-arifin-09655b365/"    target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:shadow-lg hover:shadow-blue-500/30 text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://www.tiktok.com/@yann.uiux" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:shadow-lg hover:shadow-black-500/30 text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="https://www.instagram.com/yann_ui.ux/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:shadow-lg hover:shadow-pink-500/30 text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://wa.me/6285648919384?text=Halo%20Yanuar%2C%20saya%20tertarik%20untuk%20Joki%20UI/UX%20Designer." target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:shadow-lg hover:shadow-green-500/30 text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=yanuararifin121@gmail.com&su=Kerja%20Sama%20UI%2FUX&body=Halo%20Yanuar,%0ASaya%20tertarik%20untuk%20bekerja%20sama." target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:shadow-lg hover:shadow-yellow-500/30 text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"><i class="fa-solid fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-black/40 p-8 rounded-3xl border border-white/5 scroll-slide-right hover:border-purple-500/30 transition-all duration-300">
+                    <div>
+                    <form id="contactForm" class="space-y-4">
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Nama Lengkap</label>
+                            <input
+                                type="text"
+                                name="Nama"
+                                placeholder="Yanuar UI/UX Designer"
+                                required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition hover:border-white/20">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Email</label>
+                            <input
+                                type="email"
+                                name="Email"
+                                placeholder="emailanda@gmail.com"
+                                required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition hover:border-white/20">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Pesan</label>
+                            <textarea
+                                name="Pesan"
+                                rows="4"
+                                placeholder="Ceritakan project Anda..."
+                                required
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition hover:border-white/20"></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-purple-500 to-indigo-500 py-4 rounded-xl font-bold text-white hover:opacity-90 transition shadow-lg shadow-purple-500/20 hover:shadow-2xl hover:shadow-purple-500/40 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Popup Sukses -->
+                <div id="successPopup" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50 backdrop-blur-sm">
+                    <div class="bg-gray-900 p-6 rounded-xl text-center text-white max-w-xs animate-bounceScale">
+                        <h3 class="text-lg font-bold mb-2">Pesan Terkirim!</h3>
+                        <p class="mb-4">Terima kasih, pesan Anda berhasil dikirim.</p>
+                        <button id="closePopup" class="px-4 py-2 bg-purple-500 rounded-lg font-semibold hover:opacity-90 transition hover:shadow-lg hover:shadow-purple-500/20">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-xl font-bold tracking-tighter">
+                <span class="text-white"></span><span class="text-purple-400"></span>
+            </div>
+            <p class="text-gray-500 text-sm">© 2026 Yann UI/UX Profile. Built with Passion & Figma.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-white text-xs uppercase tracking-widest font-bold"></a>
+                <a href="#" class="text-gray-500 hover:text-white text-xs uppercase tracking-widest font-bold"></a>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+
+
+
+    <!-- Custom JS -->
+    <script type="module" src="main.js"></script>
+
+</body>
+</html>
