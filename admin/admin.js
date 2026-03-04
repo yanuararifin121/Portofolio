@@ -2,7 +2,7 @@
    ADMIN PANEL - PORTFOLIO MANAGER
    ================================ */
 
-const API_URL = 'http://localhost:5000/api/projects';
+const API_URL = '/api/projects';
 
 // Check Auth
 const token = localStorage.getItem('adminToken');

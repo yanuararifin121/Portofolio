@@ -3,7 +3,7 @@
 /* ===============================
    CONFIG
 ================================ */
-const API_URL = 'http://localhost:5000/api/projects';
+const API_URL = '/api/projects';
 const ITEMS_PER_PAGE = 3;
 
 /* ===============================
