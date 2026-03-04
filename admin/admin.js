@@ -2,12 +2,18 @@
    ADMIN PANEL - PORTFOLIO MANAGER
    ================================ */
 
-// ===== KONFIGURASI STORAGE =====
-const STORAGE_KEY = 'portfolio_projects';
+const API_URL = 'http://localhost:5000/api/projects';
+
+// Check Auth
+const token = localStorage.getItem('adminToken');
+if (!token) {
+  window.location.href = 'login.html';
+}
 
 // ===== STATE =====
-let projects = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-let currentBase64 = null;
+let projects = [];
+let currentFile = null;
+let currentBase64 = null; // Still needed for preview only
 
 const DEFAULT_PLACEHOLDER =
   'https://via.placeholder.com/400x225/111/444?text=Tanpa+Gambar';
@@ -22,6 +28,19 @@ const totalCount = document.getElementById('totalProjects');
 const toast = document.getElementById('toast');
 const toastMsg = document.getElementById('toastMsg');
 
+// ===== FETCH PROJECTS JARINGAN =====
+async function fetchProjects() {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error('Gagal mengambil data');
+    projects = await response.json();
+    renderProjects();
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    showToast('Gagal memuat data dari server', '#ef4444');
+  }
+}
+
 // ===== HANDLE FILE UPLOAD =====
 function handleFile(file) {
   if (!file || !file.type.startsWith('image/')) {
@@ -29,55 +48,26 @@ function handleFile(file) {
     return;
   }
 
-  // Check file size (max 2MB)
-  if (file.size > 2 * 1024 * 1024) {
-    showToast('Ukuran file terlalu besar! Maksimal 2MB', '#ef4444');
+  // Check file size (max 5MB for Cloudinary)
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('Ukuran file terlalu besar! Maksimal 5MB', '#ef4444');
     return;
   }
 
+  currentFile = file;
+
+  // Preview local image
   const reader = new FileReader();
   reader.onload = (e) => {
-    // Compress image
-    const img = new Image();
-    img.src = e.target.result;
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      // Resize ke maksimal 800x600
-      let width = img.width;
-      let height = img.height;
-      const maxWidth = 800;
-      const maxHeight = 600;
-      
-      if (width > height) {
-        if (width > maxWidth) {
-          height *= maxWidth / width;
-          width = maxWidth;
-        }
-      } else {
-        if (height > maxHeight) {
-          width *= maxHeight / height;
-          height = maxHeight;
-        }
-      }
-      
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-      
-      // Compress dengan quality 0.8
-      currentBase64 = canvas.toDataURL('image/jpeg', 0.8);
-      
-      livePreview.innerHTML = `
-        <img src="${currentBase64}"
-             class="w-full h-full object-cover rounded-xl
-                    scale-105 group-hover:scale-100
-                    transition duration-500">
-      `;
-      dropZone.classList.add('border-purple-500/50');
-      showToast('Gambar berhasil dikompresi!', '#22c55e');
-    };
+    currentBase64 = e.target.result;
+    livePreview.innerHTML = `
+      <img src="${currentBase64}"
+           class="w-full h-full object-cover rounded-xl
+                  scale-105 group-hover:scale-100
+                  transition duration-500">
+    `;
+    dropZone.classList.add('border-purple-500/50');
+    showToast('Gambar dipilih!', '#22c55e');
   };
   reader.readAsDataURL(file);
 }
@@ -109,7 +99,7 @@ function renderProjects() {
   projectList.innerHTML = '';
 
   projects.forEach((p) => {
-    const displayImg = p.image || DEFAULT_PLACEHOLDER;
+    const displayImg = p.imageUrl || DEFAULT_PLACEHOLDER;
 
     projectList.innerHTML += `
       <tr class="group hover:bg-white/5 transition-colors">
@@ -146,11 +136,10 @@ function renderProjects() {
   });
 
   totalCount.innerText = projects.length;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
 }
 
 // ===== SUBMIT FORM =====
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const title = document.getElementById('projTitle').value.trim();
@@ -167,40 +156,89 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  const newProject = {
-    id: Date.now(),
-    title: title,
-    category: category,
-    image: currentBase64,
-    desc: desc
-  };
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('category', category);
+  formData.append('desc', desc);
 
-  // Check localStorage size
-  const existingData = localStorage.getItem(STORAGE_KEY);
-  const newData = JSON.stringify([...projects, newProject]);
-  
-  if (newData.length > 4 * 1024 * 1024) { // 4MB limit
-    showToast('Storage penuh! Hapus beberapa project terlebih dahulu', '#ef4444');
-    return;
+  if (currentFile) {
+    formData.append('image', currentFile);
   }
 
-  projects.unshift(newProject);
-  renderProjects();
+  // Show loading
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = 'Menyimpan...';
 
-  // RESET FORM
-  form.reset();
-  currentBase64 = null;
-  livePreview.innerHTML = 'Belum ada gambar terpilih';
-  dropZone.classList.remove('border-purple-500/50');
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+      },
+      body: formData,
+    });
 
-  showToast('Project berhasil disimpan! (' + projects.length + ' total)', '#22c55e');
+    if (response.status === 401 || response.status === 403) {
+      alert('Sesi habis, silakan login kembali');
+      logout();
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error('Gagal menyimpan project');
+    }
+
+    const newProject = await response.json();
+    projects.unshift(newProject);
+    renderProjects();
+
+    // RESET FORM
+    form.reset();
+    currentFile = null;
+    currentBase64 = null;
+    livePreview.innerHTML = 'Belum ada gambar terpilih';
+    dropZone.classList.remove('border-purple-500/50');
+
+    showToast('Project berhasil disimpan!', '#22c55e');
+
+  } catch (error) {
+    console.error('Error submitting project:', error);
+    showToast('Gagal menyimpan ke server!', '#ef4444');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
+  }
 });
 
 // ===== DELETE PROJECT =====
-window.deleteProject = (id) => {
-  projects = projects.filter((p) => p.id !== id);
-  renderProjects();
-  showToast('Project dihapus!', '#ef4444');
+window.deleteProject = async (id) => {
+  if (!confirm('Apakah anda yakin ingin menghapus project ini?')) return;
+
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+      }
+    });
+
+    if (response.status === 401 || response.status === 403) {
+      alert('Sesi habis, silakan login kembali');
+      logout();
+      return;
+    }
+
+    if (!response.ok) throw new Error('Gagal menghapus project');
+
+    projects = projects.filter((p) => p.id !== id);
+    renderProjects();
+    showToast('Project dihapus!', '#22c55e');
+  } catch (error) {
+    console.error('Error deleting project:', error);
+    showToast('Gagal menghapus dari server!', '#ef4444');
+  }
 };
 
 // ===== TOAST =====
@@ -216,7 +254,7 @@ function showToast(message, color = '#22c55e') {
 
 // ===== LOGOUT =====
 function logout() {
-  localStorage.removeItem('adminLoggedIn');
+  localStorage.removeItem('adminToken');
   window.location.href = 'login.html';
 }
 
@@ -224,4 +262,4 @@ function logout() {
 window.logout = logout;
 
 // ===== INIT =====
-renderProjects();
+fetchProjects();

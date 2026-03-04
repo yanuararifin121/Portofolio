@@ -1,12 +1,32 @@
-function login() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+async function login() {
+    const email = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-    if (user === 'yanuararifin121@gmail.com' && pass === 'LIONSTARMLBB') {
-        localStorage.setItem('adminLoggedIn', 'true');
-        window.location.href = 'admin.html';
-    } else {
-        alert('Username atau password salah');
+    const btn = document.querySelector('button');
+    btn.disabled = true;
+    btn.innerText = 'Logging in...';
+
+    try {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('adminToken', data.token);
+            window.location.href = 'admin.html';
+        } else {
+            alert(data.error || 'Login gagal');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Gagal menghubungkan ke server');
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Login';
     }
 }
 

@@ -3,15 +3,34 @@
 /* ===============================
    CONFIG
 ================================ */
-const STORAGE_KEY = 'portfolio_projects';
+const API_URL = 'http://localhost:5000/api/projects';
 const ITEMS_PER_PAGE = 3;
 
 /* ===============================
    STATE
 ================================ */
-let projects = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+let projects = [];
 let currentFilter = 'all';
 let currentPage = 1;
+
+/* ===============================
+   FETCH PROJECTS
+================================ */
+async function fetchProjects() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Failed to fetch data');
+        projects = await response.json();
+
+        // Keep the current filter if it was set
+        document.querySelector(`[data-filter="${currentFilter}"]`)?.click();
+
+        renderPortfolio();
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        if (grid) grid.innerHTML = '<p class="text-white text-center w-full col-span-full">Gagal memuat portofolio</p>';
+    }
+}
 
 /* ===============================
    ELEMENTS
@@ -45,7 +64,7 @@ function renderPortfolio() {
 
         card.innerHTML = `
             <div class="aspect-video overflow-hidden">
-                <img src="${p.image || 'https://via.placeholder.com/400x225/111/444?text=No+Image'}"
+                <img src="${p.imageUrl || 'https://via.placeholder.com/400x225/111/444?text=No+Image'}"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
             </div>
 
@@ -116,7 +135,7 @@ filterBtns.forEach(btn => {
 /* ===============================
    INIT
 ================================ */
-renderPortfolio();
+fetchProjects();
 
 /* =====================================================
    EMAILJS + POPUP (VERSI ASLI KAMU, DIPERTAHANKAN)
@@ -157,48 +176,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // hover tombol project
 const filterButtons = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const filter = button.dataset.filter;
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
 
-            // Reset semua button
-            filterButtons.forEach(btn => {
-                btn.classList.remove(
-                    'bg-purple-500/10',
-                    'border-purple-500/30',
-                    'text-white'
-                );
-                btn.classList.add(
-                    'border-white/10',
-                    'text-gray-400'
-                );
-            });
-
-            // Active button
-            button.classList.remove('border-white/10', 'text-gray-400');
-            button.classList.add(
+        // Reset semua button
+        filterButtons.forEach(btn => {
+            btn.classList.remove(
                 'bg-purple-500/10',
                 'border-purple-500/30',
                 'text-white'
             );
+            btn.classList.add(
+                'border-white/10',
+                'text-gray-400'
+            );
+        });
 
-            // Filter portfolio
-            portfolioItems.forEach(item => {
-                if (filter === 'all' || item.dataset.category === filter) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
+        // Active button
+        button.classList.remove('border-white/10', 'text-gray-400');
+        button.classList.add(
+            'bg-purple-500/10',
+            'border-purple-500/30',
+            'text-white'
+        );
+
+        // Filter portfolio
+        portfolioItems.forEach(item => {
+            if (filter === 'all' || item.dataset.category === filter) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
         });
     });
+});
 
-    // Set default active = All Projects
-    document.querySelector('[data-filter="all"]').click();
+// Set default active = All Projects (only visually init first, render data from fetch)
+const initialBtn = document.querySelector('[data-filter="all"]');
+if (initialBtn && projects.length > 0) {
+    initialBtn.click();
+}
 
-    // require('dotenv').config();
+// require('dotenv').config();
 
 /* ===============================
    SCROLL ANIMATIONS (Intersection Observer)
@@ -214,13 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 // Add animation class
                 entry.target.classList.add('visible');
-                
+
                 // Add stagger effect to children
                 const children = entry.target.querySelectorAll('.glass, .portfolio-item, .skill-item, div > h1, div > h2, div > h3, div > p');
                 children.forEach((child, index) => {
                     child.style.animationDelay = `${index * 0.1}s`;
                 });
-                
+
                 observer.unobserve(entry.target);
             }
         });
@@ -256,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const blobs = document.querySelectorAll('.blob');
-    
+
     blobs.forEach((blob, index) => {
         const rate = scrolled * (0.5 + index * 0.1);
         blob.style.transform = `translateY(${rate}px)`;
